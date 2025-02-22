@@ -1,0 +1,8 @@
+# Ignore environment files
+.env
+
+# Ignore the news_db folder
+news_db/
+
+# Ignore pycache folder
+__pycache__
