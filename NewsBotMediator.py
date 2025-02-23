@@ -17,7 +17,7 @@ class NewsBotMediator:
 
     def fetch_headlines(self):
         """Fetches and summarizes top news headlines."""
-        articles = self.news_fetcher.fetch({"type": "headline"})
+        articles = self.news_fetcher.fetch({"type": "headline", "query":""})
         
         if not articles:
             return "No results found."
