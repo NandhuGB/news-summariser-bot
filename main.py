@@ -14,80 +14,61 @@ from aiogram.types import Message
 from NewsBotMediator import NewsBotMediator
 load_dotenv()
 
-# api_key for news_summary_agent
-telebot_token = os.getenv("news_summary_agent_bot")
+# API key for news summarization bot
+TELEGRAM_BOT_TOKEN = os.getenv("NEWS_SUMMARY_AGENT_BOT")
 
-# Aiogram dispatcher connection
-dp = Dispatcher()
+# Initialize Aiogram dispatcher
+dispatcher = Dispatcher()
 
 # Mediator instance
-mediator = NewsBotMediator()
+news_mediator = NewsBotMediator()
 
 # Handlers #
 
-# /start handler
-@dp.message(CommandStart())
-async def command_start_handler(message:Message):
+@dispatcher.message(CommandStart())
+async def start_command_handler(message: Message):
     """
-    This handles the first message after the "/start"
+    Handles the "/start" command.
     """
+    await message.answer(f"Hello, {html.bold(message.from_user.full_name)}! This is a news summarizer powered by OpenAI.")
 
-    await message.answer(f"Hello, {html.bold(message.from_user.full_name)}! This is news summariser powered by opeai.")
-
-# /help handler
-@dp.message(Command("help"))
-async def help_handler(message:Message):
+@dispatcher.message(Command("help"))
+async def help_command_handler(message: Message):
     """
-    This handles the command /help
+    Handles the "/help" command.
     """
-    text = """
-    Here is some usefull commands to get more out this bot:
-    /start  - To getting started with news summariser
-    /help   - To get help
-    /option - To get list of all available options
-    /info   - To get current options / Default options
+    help_text = """
+    Here are some useful commands to get the most out of this bot:
+    /start  - Start the news summarizer bot
+    /help   - Get help with available commands
+    /headline - Get a summary of top news headlines
     """
-    await message.answer(text)
+    await message.answer(help_text)
 
-
-# /option handler
-@dp.message(Command("option"))
-async def info_handler(message:Message):
+@dispatcher.message(Command("headline"))
+async def headline_summary_handler(message: Message):
     """
-    This handles the command "/info"
+    Returns a summary of general news headlines.
     """
-    text = "this is a infomer"
-    await message.answer(text)
-
-
-# /headline handler
-@dp.message(Command("headline"))
-async def headline_summary(message:Message):
-  """
-  This will return general healine
-  """
-
-  summary = mediator.headlines()
-  await message.answer(summary)
-
-
-
-# News Query Handler
-@dp.message()
-async def echo_handler(message:Message):
-    """
-    This handles any receiving message, except for the first message. This replies the same message back to the user
-    """
-
-    summary = mediator.query(str(message.text))
+    summary = news_mediator.fetch_headlines()
     await message.answer(summary)
 
+@dispatcher.message()
+async def news_query_handler(message: Message):
+    """
+    Handles user queries by summarizing related news.
+    """
+    summary = news_mediator.fetch_query_based_news(str(message.text))
+    await message.answer(summary)
 
-@dp.message()
 async def main():
-    bot = Bot(token = telebot_token, default =DefaultBotProperties(parse_mode=ParseMode.HTML))
-    await dp.start_polling(bot)
+    """
+    Main function to start the bot.
+    """
+    bot = Bot(token=TELEGRAM_BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    await dispatcher.start_polling(bot)
 
-if __name__=="__main__":
+if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     asyncio.run(main())
+
