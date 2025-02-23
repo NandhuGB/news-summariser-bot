@@ -34,7 +34,11 @@ class RagNews:
 
     def summarize_headlines(self, articles):
         """Summarizes news headlines from multiple articles."""
-        extracted_articles = [self.extract_full_content(article["url"]) for article in articles if self.extract_full_content(article["url"]) is not None]
+        extracted_articles = []
+        for article in articles:
+            content = self.extract_full_content(article["url"])
+            if content is not None:
+                extracted_articles.append(content)
         return self.summarizer.summarize(extracted_articles, "news headlines")
 
     def summarize_query(self, articles, query, user_input):
