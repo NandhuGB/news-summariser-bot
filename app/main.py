@@ -17,6 +17,11 @@ load_dotenv()
 # API key for news summarization bot
 TELEGRAM_BOT_TOKEN = os.getenv("NEWS_SUMMARY_AGENT_BOT")
 
+if not TELEGRAM_BOT_TOKEN:
+    raise ValueError("Api key for telegram bot is missing")
+
+print(f"Telegram bot api:{TELEGRAM_BOT_TOKEN[:5]}******")
+
 # Initialize Aiogram dispatcher
 dispatcher = Dispatcher()
 

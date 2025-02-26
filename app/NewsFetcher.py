@@ -5,6 +5,12 @@ from dotenv import load_dotenv
 
 # Load API keys from .env
 load_dotenv()
+news_api_key = os.getenv("NEWSAPI_KEY")
+
+if not news_api_key:
+    raise ValueError("Api key for newsapi-py is missing")
+
+print(f"Using news api:{news_api_key[:5]}******")
 
 class NewsFetcher(ABC):
     """
@@ -19,7 +25,7 @@ class NewsApiFetcher(NewsFetcher):
     Fetches news articles using the News API.
     """
     def __init__(self):
-        self.client = NewsApiClient(api_key=os.getenv("NEWSAPI_KEY"))
+        self.client = NewsApiClient(api_key=news_api_key)
         self.default_country = "us"
         self.default_language = "en"
 

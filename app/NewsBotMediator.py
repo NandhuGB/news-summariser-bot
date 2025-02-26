@@ -7,13 +7,19 @@ import os
 import json
 
 load_dotenv()
+openai_api_key = os.getenv("OPENAI_API_KEY")
+
+if not openai_api_key:
+    raise ValueError("Api key for openai is missing")
+
+print(f"Using openai api:{openai_api_key[:5]}******")
 
 class NewsBotMediator:
     def __init__(self):
         """Initializes the NewsBotMediator with necessary components."""
         self.news_fetcher = NewsApiFetcher()  # News fetcher
         self.rag_news = RagNews()  # Retrieval-augmented generation
-        self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))  # OpenAI client
+        self.client = OpenAI(api_key=openai_api_key)  # OpenAI client
 
     def fetch_headlines(self):
         """Fetches and summarizes top news headlines."""

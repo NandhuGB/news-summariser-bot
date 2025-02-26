@@ -8,9 +8,16 @@ from langchain.chains.summarize import load_summarize_chain
 
 load_dotenv()
 
+openai_api_key = os.getenv("OPENAI_API_KEY")
+
+if not openai_api_key:
+    raise ValueError("Api key for openai is missing")
+
+print(f"Using openai api:{openai_api_key[:5]}******")
+
 class TextSummarizer:
     def __init__(self):
-        self.llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=os.getenv("OPENAI_API_KEY"))
+        self.llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=openai_api_key)
 
     def split_text(self, text, chunk_size=16300, overlap=500):
         """Splits text into overlapping chunks using a sliding window approach."""
