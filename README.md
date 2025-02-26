@@ -16,7 +16,7 @@ Fully Dockerized for easy deployment
 
 1️⃣ Clone the Repository & Switch to Dockerized Branch
 
-git clone https://github.com/your-username/news-summarizer-bot.git
+git clone https://github.com/NandhuGB/news-summarizer-bot.git
 cd news-summarizer-bot
 git checkout dockerized
 
@@ -28,7 +28,7 @@ The Docker image is available on Docker Hub:
 
 Pull the image using:
 
-docker pull your-dockerhub-username/news-summarizer-bot:latest
+docker pull nandhugb/news-summarizer-bot:latest
 
 3️⃣ Create a .env File
 
@@ -40,7 +40,7 @@ news_summary_agent_bot=your_telegram_bot_token
 
 4️⃣ Run the Container with Custom .env File
 
-docker run --env-file .env your-dockerhub-username/news-summarizer-bot
+docker run --env-file .env nandhugb/news-summarizer-bot
 
 🔹 This will start the bot inside a Docker container and load your API keys from .env.
 
@@ -51,7 +51,7 @@ If you prefer Docker Compose, create a docker-compose.yml file:
 version: '3.8'
 services:
   news_bot:
-    image: your-dockerhub-username/news-summarizer-bot:latest
+    image: nandhugb/news-summarizer-bot:latest
     env_file:
       - .env
     restart: always
