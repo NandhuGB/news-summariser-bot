@@ -15,15 +15,17 @@ This bot fetches and summarizes news articles based on user queries. It integrat
 - **Telegram Bot API**  
 - **NewsAPI** for fetching articles  
 - **ChromaDB** for vectorized storage and retrieval  
-- **LangChain** for efficient text processing  
+- **LangChain** for efficient text processing
+- **Docker** for containerized deployment  
 
-## Setup  
+## Setup
 
 ### 1️⃣ Prerequisites  
 - Python 3.8+  
 - A Telegram bot token from [BotFather](https://t.me/BotFather)  
 - NewsAPI API key from [NewsAPI.org](https://newsapi.org)  
-- OpenAI API key from [OpenAI](https://platform.openai.com/signup/)  
+- OpenAI API key from [OpenAI](https://platform.openai.com/signup/)
+- Docker (for containerized deployment)  
 
 ### 2️⃣ Installation  
 Clone the repository and install dependencies:  
@@ -36,14 +38,20 @@ pip install -r requirements.txt
 ### 3️⃣ Configuration  
 Create a `.env` file with:  
 ```env
-newsapi-py=your_newsapi_key
-openai=your_openai_api_key
-news_summary_agent_bot=your_telegram_bot_token
+NEWSAPI_KEY=your_newsapi_key
+OPENAI_API_KEY=your_openai_api_key
+NEWS_SUMMARY_AGENT_BOT=your_telegram_bot_token
 ```
 
 ### 4️⃣ Run the Bot  
 ```bash
 python main.py
+```
+
+## Dockerized Branch
+A dedicated `dockerized` branch contains the latest updates for seamless containerization. To switch to it:  
+```bash
+git checkout dockerized
 ```
 
 ## Usage  
