@@ -12,10 +12,17 @@ from aiogram.types import Message
 
 # Local modules
 from NewsBotMediator import NewsBotMediator
+
+# Loding api key from .env file
 load_dotenv()
 
 # API key for news summarization bot
 TELEGRAM_BOT_TOKEN = os.getenv("NEWS_SUMMARY_AGENT_BOT")
+
+if not TELEGRAM_BOT_TOKEN:
+    print(f"Telegram bot token is missing {TELEGRAM_BOT_TOKEN}")
+
+print(f"Using Telegram bot token: {TELEGRAM_BOT_TOKEN[:5]}*****")
 
 # Initialize Aiogram dispatcher
 dispatcher = Dispatcher()

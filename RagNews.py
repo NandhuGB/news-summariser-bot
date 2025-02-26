@@ -9,9 +9,18 @@ import chromadb
 from langchain_openai.embeddings import OpenAIEmbeddings
 
 import hashlib
-load_dotenv()
 
 from TextSummarizer import TextSummarizer
+
+# Loding api key from .env file
+load_dotenv()
+
+# API key for openai
+openai_api_key = os.getenv("OPENAI_API_KEY")
+if not openai_api_key:
+    raise ValueError("Api key for openai is missing")
+print(f"Using openai api:{openai_api_key[:5]}******")
+
 
 class RagNews:
     def __init__(self):
@@ -20,7 +29,7 @@ class RagNews:
         self.collection = chromadb.PersistentClient("./news_db").get_or_create_collection("query_news")
         
         # Initializing the OpenAI embeddings
-        self.embedding_model = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
+        self.embedding_model = OpenAIEmbeddings(openai_api_key=openai_api_key)
 
     def extract_full_content(self, url):
         """Extracts the full news content from the given URL."""

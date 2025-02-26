@@ -6,6 +6,13 @@ from dotenv import load_dotenv
 # Load API keys from .env
 load_dotenv()
 
+# API key for News api
+news_api_key = os.getenv("NEWSAPI_KEY")
+if not news_api_key:
+    raise ValueError("Api key for news api is missing")
+print(f"Using news api:{news_api_key[:5]}******")
+
+
 class NewsFetcher(ABC):
     """
     Abstract base class for fetching news.
