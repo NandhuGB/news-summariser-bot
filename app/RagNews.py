@@ -9,20 +9,13 @@ import chromadb
 from langchain_openai.embeddings import OpenAIEmbeddings
 
 import hashlib
-load_dotenv()
 
-openai_api_key = os.getenv("OPENAI_API_KEY")
-
-if not openai_api_key:
-    raise ValueError("Api key for openai is missing")
-
-print(f"Using openai api:{openai_api_key[:5]}******")
 
 from TextSummarizer import TextSummarizer
 
 class RagNews:
-    def __init__(self):
-        self.summarizer = TextSummarizer()
+    def __init__(self, openai_api_key):
+        self.summarizer = TextSummarizer(openai_api_key)
         # Vector database
         self.collection = chromadb.PersistentClient("./news_db").get_or_create_collection("query_news")
         

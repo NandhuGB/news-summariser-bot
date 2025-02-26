@@ -12,21 +12,28 @@ from aiogram.types import Message
 
 # Local modules
 from NewsBotMediator import NewsBotMediator
+
+# Loading environment variable from .env file
 load_dotenv()
 
-# API key for news summarization bot
-TELEGRAM_BOT_TOKEN = os.getenv("NEWS_SUMMARY_AGENT_BOT")
-
-if not TELEGRAM_BOT_TOKEN:
+# API Token for telegram bot
+telegram_bot_token = os.getenv("NEWS_SUMMARY_AGENT_BOT")
+if not telegram_bot_token:
     raise ValueError("Api key for telegram bot is missing")
+print(f"Telegram bot api:{type(telegram_bot_token)}******")
 
-print(f"Telegram bot api:{TELEGRAM_BOT_TOKEN[:5]}******")
+# API key for Open ai
+openai_api_key = os.getenv("OPENAI_API_KEY")
+if not openai_api_key:
+    raise ValueError("Api key for openai is missing")
+print(f"Using openai api:{openai_api_key[:5]}******")
+
 
 # Initialize Aiogram dispatcher
 dispatcher = Dispatcher()
 
 # Mediator instance
-news_mediator = NewsBotMediator()
+news_mediator = NewsBotMediator(openai_api_key)
 
 # Handlers #
 
@@ -70,7 +77,7 @@ async def main():
     """
     Main function to start the bot.
     """
-    bot = Bot(token=TELEGRAM_BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    bot = Bot(token=telegram_bot_token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     await dispatcher.start_polling(bot)
 
 if __name__ == "__main__":

@@ -1,72 +1,72 @@
-# 📢 Telegram News Summarization Bot  
+📰 News Summarizer Bot (Dockerized)
 
-## Overview  
-This bot fetches and summarizes news articles based on user queries. It integrates NewsAPI, OpenAI’s GPT models, and Retrieval-Augmented Generation (RAG) to provide concise and relevant news summaries directly in Telegram.  
+This is a Dockerized News Summarizer Bot that fetches and summarizes news articles using APIs like News API, OpenAI, and Telegram Bot API.
 
-## Features  
-- 📰 **Headline Summarization** – Fetch and summarize the latest headlines.  
-- 🔍 **Query-Based News** – Retrieve and summarize news articles based on user input.  
-- 🧠 **Retrieval-Augmented Generation (RAG)** – Improves summarization with vector-based search.  
-- 🤖 **AI-Powered Summarization** – Uses OpenAI’s GPT for concise news summaries.  
-- 🏗 **Factory Design Pattern** – Modular and scalable architecture.  
+📌 Features
 
-## Tech Stack  
-- **Python** (aiogram, OpenAI API, langchain, newspaper3k, chromadb)  
-- **Telegram Bot API**  
-- **NewsAPI** for fetching articles  
-- **ChromaDB** for vectorized storage and retrieval  
-- **LangChain** for efficient text processing  
+Fetches news from News API
 
-## Setup  
+Uses OpenAI API for summarization
 
-### 1️⃣ Prerequisites  
-- Python 3.8+  
-- A Telegram bot token from [BotFather](https://t.me/BotFather)  
-- NewsAPI API key from [NewsAPI.org](https://newsapi.org)  
-- OpenAI API key from [OpenAI](https://platform.openai.com/signup/)  
+Sends summarized news via Telegram Bot
 
-### 2️⃣ Installation  
-Clone the repository and install dependencies:  
-```bash
-git clone https://github.com/NandhuGB/news-summariser-bot.git
-cd telegram-news-bot
-pip install -r requirements.txt
-```
+Fully Dockerized for easy deployment
 
-### 3️⃣ Configuration  
-Create a `.env` file with:  
-```env
+🚀 Getting Started
+
+1️⃣ Clone the Repository & Switch to Dockerized Branch
+
+git clone https://github.com/your-username/news-summarizer-bot.git
+cd news-summarizer-bot
+git checkout dockerized
+
+2️⃣ Download Docker Image from Docker Hub
+
+The Docker image is available on Docker Hub:
+
+🔹 Docker Hub Repository
+
+Pull the image using:
+
+docker pull your-dockerhub-username/news-summarizer-bot:latest
+
+3️⃣ Create a .env File
+
+Before running the bot, create a .env file in the project directory and add your API keys:
+
 newsapi-py=your_newsapi_key
 openai=your_openai_api_key
 news_summary_agent_bot=your_telegram_bot_token
-```
 
-### 4️⃣ Run the Bot  
-```bash
-python main.py
-```
+4️⃣ Run the Container with Custom .env File
 
-## Usage  
-- **`/start`** – Start the bot  
-- **`/help`** – List available commands  
-- **`/headline`** – Get a summary of the latest news headlines  
-- **Query message** – Send any text query to get a news summary  
+docker run --env-file .env your-dockerhub-username/news-summarizer-bot
 
-## Project Structure  
-```
-📂 telegram-news-bot  
- ├── 📜 main.py            # Bot entry point  
- ├── 📜 NewsBotMediator.py # Manages bot interaction  
- ├── 📜 NewsFetcher.py     # Fetches news using NewsAPI  
- ├── 📜 RagNews.py         # Implements RAG for summarization  
- ├── 📜 TextSummarizer.py  # Summarization pipeline with OpenAI  
- ├── 📜 requirements.txt   # Dependencies  
- ├── 📜 .env.example       # Environment variables template  
- └── 📜 README.md          # Project documentation  
-```
+🔹 This will start the bot inside a Docker container and load your API keys from .env.
 
-## Contributing  
-Feel free to fork the repo and submit pull requests! 🚀  
+5️⃣ Using Docker Compose (Optional)
 
-## License  
-This project is licensed under the MIT License.  
+If you prefer Docker Compose, create a docker-compose.yml file:
+
+version: '3.8'
+services:
+  news_bot:
+    image: your-dockerhub-username/news-summarizer-bot:latest
+    env_file:
+      - .env
+    restart: always
+
+Run it with:
+
+docker-compose up --build
+
+🛑 Stopping the Container
+
+To stop a running container:
+
+docker ps   # Find the container ID
+docker stop <container_id>
+
+📜 License
+
+This project is licensed under the MIT License.
